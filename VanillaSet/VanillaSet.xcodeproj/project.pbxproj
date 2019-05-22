@@ -42,7 +42,6 @@
 		3AEB00412295DB2500BA69E2 = {
 			isa = PBXGroup;
 			children = (
-				3AEB00622295E28D00BA69E2 /* SetCardDeck.swift */,
 				3AEB004C2295DB2500BA69E2 /* VanillaSet */,
 				3AEB004B2295DB2500BA69E2 /* Products */,
 			);
@@ -59,8 +58,8 @@
 		3AEB004C2295DB2500BA69E2 /* VanillaSet */ = {
 			isa = PBXGroup;
 			children = (
-				3AEB00602295DBED00BA69E2 /* SetCard.swift */,
-				3AEB004F2295DB2500BA69E2 /* ViewController.swift */,
+				3AEB00642295E9C600BA69E2 /* Model */,
+				3AEB00652295E9E100BA69E2 /* Controller */,
 				3AEB00512295DB2500BA69E2 /* Main.storyboard */,
 				3AEB00562295DB2600BA69E2 /* LaunchScreen.storyboard */,
 				3AEB005F2295DBD500BA69E2 /* Supporting Files */,
@@ -76,6 +75,23 @@
 				3AEB00542295DB2600BA69E2 /* Assets.xcassets */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3AEB00642295E9C600BA69E2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3AEB00622295E28D00BA69E2 /* SetCardDeck.swift */,
+				3AEB00602295DBED00BA69E2 /* SetCard.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3AEB00652295E9E100BA69E2 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				3AEB004F2295DB2500BA69E2 /* ViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
