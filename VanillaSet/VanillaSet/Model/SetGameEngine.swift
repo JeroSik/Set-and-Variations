@@ -12,20 +12,32 @@ import Foundation
 struct SetGameEngine {
     // Initialize deck of cards, selected cards
     private(set) var deck = SetCardDeck()
-    private(set) var selectedCards = [SetCard]()
+    private(set) var selectedCards = Set<SetCard>()
     
-    func chooseCard(at index: Int) {
+    // Handle behavior for choosing card
+    mutating func chooseCard(at index: Int) {
         assert(deck.cards.indices.contains(index), "SetGameEngine.chooseCard(at: \(index)): choosen index not in cards")
-
-        // Deselect card if the card has already been selected
-        if selectedCards.contains(deck.cards[index]) {
+        let currentCard = deck.cards[index]
+        
+        // Deselect current card if the card has already been selected
+        if selectedCards.contains(currentCard) {
+            selectedCards.remove(currentCard)
+        } else {
+            // Add current card to selected cards
+            selectedCards.insert(currentCard)
             
+            // If third card, then check if the selected cards is a set
+            if selectedCards.count == 3 {
+                if isSet(on: selectedCards) {
+                    
+                }
+            }
         }
         // if 3 cards are choosen, then check if a proper set
         
     }
     
-    func isSet() -> Bool {
+    func isSet(on set: Set<SetCard>) -> Bool {
         return true
     }
 }

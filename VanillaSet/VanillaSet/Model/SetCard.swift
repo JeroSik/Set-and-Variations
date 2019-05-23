@@ -10,12 +10,13 @@
 
 import Foundation
 
-struct SetCard: CustomStringConvertible {
+struct SetCard: CustomStringConvertible, Hashable {
     // Variables holding card properties
     var shape: Shape
     var number: Number
     var shading: Shading
     var color: Color
+    var identifier: Int
     
     // Enumeration for the three types of shapes
     enum Shape: String, CustomStringConvertible {
@@ -57,13 +58,29 @@ struct SetCard: CustomStringConvertible {
         static var all = [Color.red, .green, .blue]
     }
     
-    static func ==(lhs: SetCard, rhs: SetCard) -> Bool {
-        return lhs.shape == rhs.shape &&
-                lhs.number == rhs.number &&
-                lhs.shading == rhs.shading &&
-                lhs.color == rhs.color
-    }
-    
     // Description of card for debugging
     var description: String { return "\(number) \(color) \(shading) \(shape)" }
+    
+    // Allow SetCard type to be hashable
+    private static var identifierFactory = 0
+    private static func getUniqueIdentifier() -> Int {
+        identifierFactory += 1
+        return identifierFactory
+    }
+    
+    // Allow SetCard type to be equatable
+    static func ==(lhs: SetCard, rhs: SetCard) -> Bool {
+        return lhs.shape == rhs.shape &&
+            lhs.number == rhs.number &&
+            lhs.shading == rhs.shading &&
+            lhs.color == rhs.color
+    }
+    
+    init (shape: Shape, number: Number, shading: Shading, color: Color) {
+        self.shape = shape
+        self.number = number
+        self.shading = shading
+        self.color = color
+        self.identifier = SetCard.getUniqueIdentifier()
+    }
 }
