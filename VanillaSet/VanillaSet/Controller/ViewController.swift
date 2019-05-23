@@ -9,15 +9,19 @@
 import UIKit
 
 class ViewController: UIViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        for _ in 1...10 {
-            if let card = deck.draw() {
-                print("\(card)")
-            }
-        }
+    var gameEngine = SetGameEngine()
+    
+    @IBOutlet var cardButtons: [UIButton]!
+    
+    @IBAction func dealThreeMoreCardsButtonPressed(_ sender: UIButton) {
     }
     
-    var deck = SetCardDeck()
+    @IBOutlet weak var scoreLabel: UILabel!
+    func updateScore() {
+        
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
 }

@@ -11,8 +11,11 @@ import Foundation
 
 struct SetGameEngine {
     // Initialize deck of cards, selected cards
-    private(set) var deck = SetCardDeck()
-    private(set) var selectedCards = Set<SetCard>()
+    private var deck = SetCardDeck()
+    private var score = 0
+    private var cardsOnTable = Array<SetCard>()
+    private var selectedCards = Set<SetCard>()
+    
     
     // Handle behavior for choosing card
     mutating func chooseCard(at index: Int) {
@@ -22,6 +25,7 @@ struct SetGameEngine {
         // Deselect current card if the card has already been selected
         if selectedCards.contains(currentCard) {
             selectedCards.remove(currentCard)
+            score -= 1
         } else {
             // Add current card to selected cards
             selectedCards.insert(currentCard)
@@ -29,7 +33,14 @@ struct SetGameEngine {
             // If third card, then check if the selected cards is a set
             if selectedCards.count == 3 {
                 if isSet(on: selectedCards) {
-                    
+                    for cards in selectedCards {
+                        cardsOnTable.remove(at: cardsOnTable.firstIndex(of: cards)!)
+                    }
+                    draw()
+                    selectedCards.removeAll()
+                    score += 3
+                } else {
+                    score -= 5
                 }
             }
         }
@@ -37,7 +48,31 @@ struct SetGameEngine {
         
     }
     
-    func isSet(on set: Set<SetCard>) -> Bool {
-        return true
+    mutating func draw() {
+        for _ in 1...3 {
+            if let drawnCard = deck.draw() {
+                cardsOnTable.append(drawnCard)
+            }
+        }
+    }
+    
+    // Given a set, return whether cards match or not
+    func isSet(on currentSet: Set<SetCard>) -> Bool {
+        let shapeSet = Set(currentSet.map { $0.shape }).count
+        let numberSet = Set(currentSet.map { $0.number }).count
+        let shadingSet = Set(currentSet.map { $0.shading }).count
+        let colorSet = Set(currentSet.map { $0.color }).count
+        
+        return shapeSet != 2 && numberSet != 2 && shadingSet != 2 && colorSet != 2
+    }
+    
+    mutating func initCardsOnTable() {
+        for _ in 1...4 {
+            draw()
+        }
+    }
+    
+    init() {
+        initCardsOnTable()
     }
 }
