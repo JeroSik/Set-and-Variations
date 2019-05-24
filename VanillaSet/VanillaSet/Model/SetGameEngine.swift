@@ -12,8 +12,8 @@ import Foundation
 struct SetGameEngine {
     // Initialize deck of cards, selected cards
     private var deck = SetCardDeck()
-    private var score = 0
-    private var cardsOnTable = Array<SetCard>()
+    private(set) var score = 0
+    private(set) var cardsOnTable = Array<SetCard>()
     private var selectedCards = Set<SetCard>()
     
     
