@@ -65,6 +65,27 @@ class ViewController: UIViewController {
         }
     }
     
+    // Handle behavior for new game
+    @IBAction func newGameButtonPressed(_ sender: UIButton) {
+        gameEngine = SetGameEngine()
+        resetButton()
+        updateCardsOnTable()
+        toggleDealThreeMoreCardsButton()
+        updateScore()
+        selectedButtons.removeAll()
+//        hintedButton.removeAll()
+    }
+    
+    // Change the buttons back to the initial state
+    private func resetButton() {
+        for button in cardButtons {
+            let nsAttributedString = NSAttributedString(string: "")
+            button.setAttributedTitle(nsAttributedString, for: UIButton.State.normal)
+            button.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
+            button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
+        }
+    }
+    
     // Change the button card views with the appropriate card titles
     func updateCardsOnTable() {
         for (index, card) in gameEngine.cardsOnTable.enumerated() {
