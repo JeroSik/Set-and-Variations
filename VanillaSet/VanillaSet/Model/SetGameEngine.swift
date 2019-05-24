@@ -16,7 +16,6 @@ struct SetGameEngine {
     private(set) var cardsOnTable = Array<SetCard>()
     private var selectedCards = Set<SetCard>()
     
-    
     // Handle behavior for choosing card
     mutating func chooseCard(at index: Int) {
         assert(deck.cards.indices.contains(index), "SetGameEngine.chooseCard(at: \(index)): choosen index not in cards")
@@ -45,10 +44,9 @@ struct SetGameEngine {
                 }
             }
         }
-        // if 3 cards are choosen, then check if a proper set
-        
     }
     
+    // Handle behavior from drawing cards from the deck
     mutating func draw(at cardIndices: Array<Int> = []) {
         for index in 0...2 {
             if let drawnCard = deck.draw() {
@@ -69,15 +67,16 @@ struct SetGameEngine {
         let colorSet = Set(currentSet.map { $0.color }).count
 
         return shapeSet != 2 && numberSet != 2 && shadingSet != 2 && colorSet != 2
-//        return true
     }
     
+    // Initialize the cards on table at start of game
     mutating func initCardsOnTable() {
         for _ in 1...4 {
             draw()
         }
     }
     
+    // Initialize the game engine
     init() {
         initCardsOnTable()
     }

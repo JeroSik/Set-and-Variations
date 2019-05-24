@@ -48,6 +48,11 @@ class ViewController: UIViewController {
         }
     }
     
+    
+    // Handle behavior for displaying hints
+    @IBAction func hintButtonPressed(_ sender: UIButton) {
+    }
+    
     // Handles behavior of dealing three more cards if possible
     @IBOutlet weak var dealThreeMoreCardsButton: UIButton!
     @IBAction func dealThreeMoreCardsButtonPressed(_ sender: UIButton) {
