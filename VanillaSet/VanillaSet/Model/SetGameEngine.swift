@@ -57,6 +57,7 @@ struct SetGameEngine {
                     let hints = [cardsOnTable[cardOne], cardsOnTable[cardTwo], cardsOnTable[cardThree]]
                     if isSet(on: Set(hints)) {
                         hintCards += [cardOne, cardTwo, cardThree]
+                        return
                     }
                 }
             }

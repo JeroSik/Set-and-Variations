@@ -51,6 +51,15 @@ class ViewController: UIViewController {
     
     // Handle behavior for displaying hints
     @IBAction func hintButtonPressed(_ sender: UIButton) {
+        gameEngine.hint()
+        
+        if gameEngine.hintCards.count > 0 {
+            for hint in 0...2 {
+                let index = gameEngine.hintCards[hint]
+                cardButtons[index].layer.borderColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
+                cardButtons[index].layer.borderWidth = 3.0
+            }
+        }
     }
     
     // Handles behavior of dealing three more cards if possible
@@ -78,7 +87,6 @@ class ViewController: UIViewController {
         toggleDealThreeMoreCardsButton()
         updateScore()
         selectedButtons.removeAll()
-//        hintedButton.removeAll()
     }
     
     // Change the buttons back to the initial state
