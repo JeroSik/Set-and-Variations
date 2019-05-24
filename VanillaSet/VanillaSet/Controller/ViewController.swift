@@ -10,10 +10,37 @@ import UIKit
 
 class ViewController: UIViewController {
     var gameEngine = SetGameEngine()
+    var selectedButtons = [UIButton]()
     
     @IBOutlet var cardButtons: [UIButton]!
     @IBAction func cardButtonPressed(_ sender: UIButton) {
+        if let cardIndex = cardButtons.firstIndex(of: sender) {
+            if cardIndex < gameEngine.cardsOnTable.count {
+                gameEngine.chooseCard(at: cardIndex)
+                chooseButton(at: sender)
+                updateCardsOnTable()
+            }
+        }
+    }
+    
+    private func chooseButton(at card: UIButton) {
+        assert(cardButtons.contains(card), "ViewController.chooseButton(at \(card)): choosen card not in buttons")
         
+        if selectedButtons.contains(card) {
+            card.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
+            card.layer.borderWidth = 3.0
+            selectedButtons.remove(at: selectedButtons.firstIndex(of: card)!)
+        } else  {
+            selectedButtons += [card]
+            card.layer.borderColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
+            card.layer.borderWidth = 3.0
+            
+            if selectedButtons.count == 3 {
+                cardButtons.forEach() { $0.layer.borderColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 0) }
+                selectedButtons.removeAll()
+                updateScore()
+            }
+        }
     }
     
     // Handles behavior of dealing three more cards if possible

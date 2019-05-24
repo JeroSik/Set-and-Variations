@@ -20,7 +20,7 @@ struct SetGameEngine {
     // Handle behavior for choosing card
     mutating func chooseCard(at index: Int) {
         assert(deck.cards.indices.contains(index), "SetGameEngine.chooseCard(at: \(index)): choosen index not in cards")
-        let currentCard = deck.cards[index]
+        let currentCard = cardsOnTable[index]
         
         // Deselect current card if the card has already been selected
         if selectedCards.contains(currentCard) {
@@ -33,10 +33,11 @@ struct SetGameEngine {
             // If third card, then check if the selected cards is a set
             if selectedCards.count == 3 {
                 if isSet(on: selectedCards) {
-                    for cards in selectedCards {
-                        cardsOnTable.remove(at: cardsOnTable.firstIndex(of: cards)!)
+                    var cardIndices = Array<Int>()
+                    for card in selectedCards {
+                        cardIndices.append(cardsOnTable.firstIndex(of: card)!)
                     }
-                    draw()
+                    draw(at: cardIndices)
                     selectedCards.removeAll()
                     score += 3
                 } else {
@@ -48,10 +49,14 @@ struct SetGameEngine {
         
     }
     
-    mutating func draw() {
-        for _ in 1...3 {
+    mutating func draw(at cardIndices: Array<Int> = []) {
+        for index in 0...2 {
             if let drawnCard = deck.draw() {
-                cardsOnTable.append(drawnCard)
+                if cardIndices.isEmpty {
+                    cardsOnTable.append(drawnCard)
+                } else {
+                    cardsOnTable[cardIndices[index]] = drawnCard
+                }
             }
         }
     }
@@ -62,8 +67,9 @@ struct SetGameEngine {
         let numberSet = Set(currentSet.map { $0.number }).count
         let shadingSet = Set(currentSet.map { $0.shading }).count
         let colorSet = Set(currentSet.map { $0.color }).count
-        
+
         return shapeSet != 2 && numberSet != 2 && shadingSet != 2 && colorSet != 2
+//        return true
     }
     
     mutating func initCardsOnTable() {
