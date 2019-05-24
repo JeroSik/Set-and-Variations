@@ -14,6 +14,7 @@ struct SetGameEngine {
     private var deck = SetCardDeck()
     private(set) var score = 0
     private(set) var cardsOnTable = Array<SetCard>()
+    private(set) var hintCards = [Int]()
     private var selectedCards = Set<SetCard>()
     
     // Handle behavior for choosing card
@@ -41,6 +42,22 @@ struct SetGameEngine {
                     score += 3
                 } else {
                     score -= 5
+                }
+            }
+        }
+    }
+    
+    // Handle behavior for finding hints within the current cards on table
+    mutating func hint() {
+        hintCards.removeAll()
+        
+        for cardOne in 0 ..< cardsOnTable.count {
+            for cardTwo in (cardOne + 1) ..< cardsOnTable.count {
+                for cardThree in (cardTwo + 1) ..< cardsOnTable.count {
+                    let hints = [cardsOnTable[cardOne], cardsOnTable[cardTwo], cardsOnTable[cardThree]]
+                    if isSet(on: Set(hints)) {
+                        hintCards += [cardOne, cardTwo, cardThree]
+                    }
                 }
             }
         }
