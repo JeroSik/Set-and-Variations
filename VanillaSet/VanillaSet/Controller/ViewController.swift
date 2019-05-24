@@ -9,10 +9,14 @@
 import UIKit
 
 class ViewController: UIViewController {
+    // Setup game engine
     var gameEngine = SetGameEngine()
+    
+    // Initialize button collection and selected buttons
+    @IBOutlet var cardButtons: [UIButton]!
     var selectedButtons = [UIButton]()
     
-    @IBOutlet var cardButtons: [UIButton]!
+    // Handle behavior for pressing a card button
     @IBAction func cardButtonPressed(_ sender: UIButton) {
         if let cardIndex = cardButtons.firstIndex(of: sender) {
             if cardIndex < gameEngine.cardsOnTable.count {
@@ -23,6 +27,7 @@ class ViewController: UIViewController {
         }
     }
     
+    // Handle behavior for choosing a button
     private func chooseButton(at card: UIButton) {
         assert(cardButtons.contains(card), "ViewController.chooseButton(at \(card)): choosen card not in buttons")
         
