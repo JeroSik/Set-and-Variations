@@ -62,6 +62,8 @@ struct SetGameEngine {
                 }
             }
         }
+        
+        score -= 5
     }
     
     // Handle behavior from drawing cards from the deck
