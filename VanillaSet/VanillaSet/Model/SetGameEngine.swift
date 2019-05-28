@@ -38,11 +38,12 @@ struct SetGameEngine {
                         cardIndices.append(cardsOnTable.firstIndex(of: card)!)
                     }
                     draw(at: cardIndices)
-                    selectedCards.removeAll()
                     score += 3
                 } else {
                     score -= 5
                 }
+                
+                selectedCards.removeAll()
             }
         }
     }
